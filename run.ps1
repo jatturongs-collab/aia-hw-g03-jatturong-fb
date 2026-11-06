@@ -40,6 +40,22 @@ switch ($Command) {
         Write-Host "A browser window opens. Log in to your OWN Facebook account (incl. 2FA), then press ENTER here." -ForegroundColor Cyan
         & $py extract_posts.py --login
     }
+    "login-chrome" {
+        # Log in with a NORMAL Chrome window (no automation attached) that uses the same profile folder
+        # the scraper uses later. Use this if "login" hangs or Facebook says the login is incorrect.
+        $chrome = @("$env:ProgramFiles\Google\Chrome\Application\chrome.exe",
+                    "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe",
+                    "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe") |
+                  Where-Object { Test-Path $_ } | Select-Object -First 1
+        if (-not $chrome) { Write-Host "Google Chrome not found. Install Chrome, or use: .\run.ps1 login" -ForegroundColor Yellow; exit 1 }
+        $profileDir = Join-Path $env:LOCALAPPDATA "fb-post-extractor\profile"
+        New-Item -ItemType Directory -Force $profileDir | Out-Null
+        Write-Host "A normal Chrome window opens. Log in to your OWN Facebook account, wait until you see your News Feed," -ForegroundColor Cyan
+        Write-Host "then CLOSE that Chrome window completely, and press ENTER here." -ForegroundColor Cyan
+        Start-Process -FilePath $chrome -ArgumentList @("--user-data-dir=`"$profileDir`"", "--no-first-run", "--no-default-browser-check", "https://www.facebook.com/")
+        Read-Host "Press ENTER after you closed Chrome"
+        Write-Host "Session saved in $profileDir. Next: .\run.ps1 scrape -Max 5" -ForegroundColor Green
+    }
     "scrape" {
         $a = @("--url", $Url, "--output", $Output) + (Get-ExtraArgs)
         if ($Max -gt 0) { $a += @("--max-posts", "$Max") }
@@ -60,6 +76,7 @@ switch ($Command) {
 Usage:  .\run.ps1 <command> [options]
 
   login          open browser, log in once (your own account), press ENTER
+  login-chrome   same, but in a normal Chrome window (use this if "login" hangs or says incorrect)
   scrape         collect posts into report\All_Post.md
   scrape-until   repeat runs with cool-downs until -Target posts
   test           self-test against a fake page (no Facebook, no login)

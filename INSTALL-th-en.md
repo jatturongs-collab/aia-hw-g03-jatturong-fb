@@ -61,6 +61,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 | `running scripts is disabled` หรือ `is not digitally signed` (เกิดกับไฟล์ที่โหลดเป็น ZIP) | รัน `install.ps1` ตามขั้นที่ 4 ก่อน (มันปลดล็อกไฟล์ให้) หรือพิมพ์ `Get-ChildItem -Recurse \| Unblock-File` ในโฟลเดอร์โปรแกรม หรือรันแบบข้ามชั่วคราว `powershell -ExecutionPolicy Bypass -File .\run.ps1 login` |
 | `Python 3.10+ not found` | ทำขั้นที่ 1 ใหม่ แล้วปิด-เปิด PowerShell |
 | ขึ้นว่าต้องล็อกอิน (exit code 3) | รัน `.\run.ps1 login` ใหม่ |
+| `login` ค้าง (หน้า Facebook หมุนไม่หยุด) หรือขึ้นว่า "login information incorrect" ทั้งที่รหัสถูก | Facebook ไม่ชอบการล็อกอินในเบราว์เซอร์ที่ถูกควบคุมอัตโนมัติ ให้ใช้ `.\run.ps1 login-chrome` (เปิด Chrome ปกติ ล็อกอินเอง แล้วปิด Chrome และกด Enter) ก่อนหน้านั้นลองล็อกอิน facebook.com ใน Chrome ปกติให้ผ่านก่อน |
 | ภาษาไทยเป็นสี่เหลี่ยม/อักษรเพี้ยน | เปิดไฟล์ `.md` ด้วย VS Code, Notepad หรือ Obsidian (UTF-8) |
 | `Profile is locked` | ปิด Chrome ที่โปรแกรมเปิดไว้ทั้งหมด แล้วรันใหม่ |
 | Facebook ขึ้นหน้าตรวจสอบความปลอดภัย | หยุดใช้ 1 วัน แล้วลดจำนวนโพสต์ต่อรอบ อย่ารันถี่ |
@@ -79,6 +80,8 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 7. **Collect posts (start small):** `.\run.ps1 scrape -Url https://www.facebook.com/WriterTable -Max 20`
 
 Results: `report\All_Post.md`, `report\picture\`, `report\scrape_audit.txt` (`never-seen=0` = nothing missed).
+
+If `login` hangs or Facebook says the login is incorrect (with a correct password), use `.\run.ps1 login-chrome`: it opens a normal Chrome window, you log in, close Chrome, press ENTER.
 
 If PowerShell says `run.ps1 is not digitally signed` (typical for a ZIP download), run `Get-ChildItem -Recurse | Unblock-File` in the program folder (`install.ps1` also does this), or use `powershell -ExecutionPolicy Bypass -File .\run.ps1 <command>`.
 
