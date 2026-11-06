@@ -1,0 +1,16 @@
+# Never commit sessions, scraped data or logs
+.fb_browser_profile/
+.fb_extractor_profile/
+profile/
+report/
+report*/
+*.log
+*.bak
+__pycache__/
+*.pyc
+.venv/
+test/out/
+test/out_year/
+test/profile/
+.env
+*.key

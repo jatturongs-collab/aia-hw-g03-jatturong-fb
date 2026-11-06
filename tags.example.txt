@@ -1,0 +1,4 @@
+# One #tag per line. Posts containing the tag get their own file: report/<TAG>_By_Author.md
+# Copy this file to tags.txt and edit, then run:  .\run.ps1 scrape -TagsFile tags.txt
+AI
+Python
