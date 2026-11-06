@@ -48,3 +48,9 @@
 - **สาเหตุ:** ไฟล์ที่โหลดจากเว็บมีเครื่องหมาย Zone.Identifier และ Bypass มีผลกับสคริปต์ที่สั่งในคำสั่งนั้นครั้งเดียว ไม่ใช่ทั้งเซสชัน
 - **แก้อย่างไร:** `install.ps1` เรียก `Unblock-File` ทั้งโฟลเดอร์ (ยกเว้น .venv) และคู่มือบอกวิธี `Get-ChildItem -Recurse | Unblock-File` หรือ `powershell -ExecutionPolicy Bypass -File .\run.ps1 ...`
 - **ลองวิธีไหนแล้วไม่เวิร์ก:** รัน `.\run.ps1` ตรง ๆ หลังติดตั้ง (ยังถูกบล็อกเพราะเครื่องหมายอยู่)
+
+### 2026-11-06 · แถบเตือน --no-sandbox บน Windows
+
+- **เจออะไร:** Chrome ที่เครื่องมือเปิดขึ้นมีแถบ "unsupported command-line flag: --no-sandbox"
+- **สาเหตุ:** โค้ดเดิมใส่ `--no-sandbox` สำหรับ WSL และ Playwright ใส่ให้เองเมื่อไม่ตั้ง `chromium_sandbox`
+- **แก้อย่างไร:** บน Windows ตั้ง `chromium_sandbox=True` และไม่ใส่ flag นั้น ส่วน Linux คงเดิม

@@ -93,3 +93,19 @@ PS ...> .\run.ps1 login
 - **ผลที่ได้:** สาเหตุคือไฟล์จาก ZIP มีเครื่องหมาย "โหลดจากอินเทอร์เน็ต" (Zone.Identifier) และ `-ExecutionPolicy Bypass` ใช้กับ `install.ps1` ตัวเดียวเท่านั้น `install.ps1` จึงปลดล็อกไฟล์ทั้งโฟลเดอร์ให้ (ทดสอบจำลองเครื่องหมายแล้วหายหลังรัน) ส่วนในเครื่องผู้เรียนที่ติดอยู่ ใช้ `Get-ChildItem -Recurse | Unblock-File`
 - **ตัดสินใจอะไร และเพราะอะไร:** ปลดล็อกในตัว `install.ps1` แทนการให้ผู้ใช้เปลี่ยน ExecutionPolicy ของเครื่อง เพราะมือใหม่ไม่ควรลดความปลอดภัยของระบบถาวร และปลดล็อกเฉพาะโฟลเดอร์โปรแกรม
 - **ขั้นต่อไป:** ผู้เรียนรัน `login` และ `scrape -Max 5` ต่อจากเครื่องที่ติดตั้งแล้ว แล้วเติมผลใน `help.md` ข้อ 1
+
+---
+
+## รอบ 5 · 2026-11-06
+
+- **ทำอะไร:** ปิดแถบเตือน "unsupported command-line flag: --no-sandbox" ตอน `run.ps1 login` บน Windows
+- **เครื่องมือ / model:** Claude Desktop (Code) · Sonnet 5.5
+- **Prompt ที่ใช้:**
+
+```text
+(ผู้เรียนส่งภาพหน้าจอ Chrome ที่ run.ps1 login เปิดขึ้น: แถบเตือน "You are using an unsupported command-line flag: --no-sandbox" และ Facebook ขึ้น "The login information you entered is incorrect")
+```
+
+- **ผลที่ได้:** แถบเตือนมาจากโค้ดที่ยกมาจากเวอร์ชัน WSL และจาก Playwright ที่ใส่ `--no-sandbox` เป็นค่าเริ่มต้น แก้ให้เปิด sandbox ของ Chrome บน Windows (`chromium_sandbox=True`) ทดสอบ mock ผ่านและ Chrome เปิดได้ ส่วน "login information incorrect" เป็นเรื่องอีเมล/รหัสผ่านของผู้เรียน ไม่ใช่บั๊กของเครื่องมือ
+- **ตัดสินใจอะไร และเพราะอะไร:** เปิด sandbox บน Windows เพราะลดความเสี่ยงของเบราว์เซอร์ที่ล็อกอินบัญชีจริง และเลิกมีแถบเตือน ส่วน Linux/WSL ยังใช้ `--no-sandbox` ตามเดิม
+- **ขั้นต่อไป:** ผู้เรียนตรวจอีเมล/รหัสผ่านใน Chrome ปกติก่อน แล้วรัน `login` ใหม่

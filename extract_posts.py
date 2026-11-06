@@ -1563,7 +1563,11 @@ def main():
                 headless=args.headless,
                 viewport={"width": 1280, "height": 900},
                 locale="th-TH",
-                args=["--disable-blink-features=AutomationControlled", "--no-sandbox",
+                # Playwright adds --no-sandbox by default; keep Chrome's sandbox ON on Windows
+                # (no "unsupported command-line flag" warning bar). Linux/WSL needs it off.
+                chromium_sandbox=(sys.platform == "win32"),
+                args=["--disable-blink-features=AutomationControlled"]
+                     + ([] if sys.platform == "win32" else ["--no-sandbox"]) + [
                       "--disable-notifications", "--disable-infobars",
                       # stability on long runs (the page crashed near post ~1000):
                       "--disable-dev-shm-usage", f"--js-flags=--max-old-space-size={args.js_heap_mb}",
