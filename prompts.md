@@ -74,3 +74,22 @@ proceed  approve the plan
 - **ผลที่ได้:** repo เปลี่ยนชื่อสำเร็จ รวมประวัติได้ มี conflict เฉพาะ `README.md` กับ `.gitignore` ซึ่งแก้โดยรวมเนื้อหาสองฝั่ง และเพิ่มข้อห้าม "ห้ามขึ้น repo: โพสต์/รูป/profile ที่ดึงมา"
 - **ตัดสินใจอะไร และเพราะอะไร:** เปลี่ยนชื่อ repo ให้ตรงรูปแบบ `aia-hw-<กลุ่ม>-<ชื่อเล่น>` เพราะ AGENTS.md ของ template ตรวจชื่อโฟลเดอร์ขึ้นต้นด้วย `aia-hw-` · วางเครื่องมือที่ root และคงไฟล์ template ไว้ครบ [เหตุผลของผู้เรียน: รอผู้เรียนเติม]
 - **ขั้นต่อไป:** ผู้เรียนทดสอบ `login` และ `scrape -Max 5` จริง, ยืนยัน/แก้ `help.md` ทั้ง 3 ข้อ, ตัดสินใจ push (repo เป็น Public) และเติมรอบที่ 4 เมื่อมีงานเพิ่ม (เกณฑ์ขั้นต่ำของ template คือ 3 รอบ)
+
+---
+
+## รอบ 4 · 2026-11-06
+
+- **ทำอะไร:** แก้ปัญหาที่ผู้เรียนเจอตอนทดลองติดตั้งจริงจาก GitHub ZIP: `.\run.ps1` ถูกบล็อกว่า "is not digitally signed" ทั้งที่ `install.ps1` รันได้ เพิ่มการปลดล็อกไฟล์ใน `install.ps1` และแก้คู่มือ
+- **เครื่องมือ / model:** Claude Desktop (Code) · Sonnet 5.5
+- **Prompt ที่ใช้:**
+
+```text
+PS C:\Users\jattu\Downloads\fb-scrape\aia-hw-g03-jatturong-fb-main\aia-hw-g03-jatturong-fb-main> powershell -ExecutionPolicy Bypass -File .\install.ps1
+... == 4/4 Done ==
+PS ...> .\run.ps1 login
+.\run.ps1: File ...\run.ps1 cannot be loaded. The file ...\run.ps1 is not digitally signed. You cannot run this script on the current system.
+```
+
+- **ผลที่ได้:** สาเหตุคือไฟล์จาก ZIP มีเครื่องหมาย "โหลดจากอินเทอร์เน็ต" (Zone.Identifier) และ `-ExecutionPolicy Bypass` ใช้กับ `install.ps1` ตัวเดียวเท่านั้น `install.ps1` จึงปลดล็อกไฟล์ทั้งโฟลเดอร์ให้ (ทดสอบจำลองเครื่องหมายแล้วหายหลังรัน) ส่วนในเครื่องผู้เรียนที่ติดอยู่ ใช้ `Get-ChildItem -Recurse | Unblock-File`
+- **ตัดสินใจอะไร และเพราะอะไร:** ปลดล็อกในตัว `install.ps1` แทนการให้ผู้ใช้เปลี่ยน ExecutionPolicy ของเครื่อง เพราะมือใหม่ไม่ควรลดความปลอดภัยของระบบถาวร และปลดล็อกเฉพาะโฟลเดอร์โปรแกรม
+- **ขั้นต่อไป:** ผู้เรียนรัน `login` และ `scrape -Max 5` ต่อจากเครื่องที่ติดตั้งแล้ว แล้วเติมผลใน `help.md` ข้อ 1

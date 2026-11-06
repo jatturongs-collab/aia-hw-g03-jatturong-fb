@@ -58,7 +58,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 ### แก้ปัญหา
 | อาการ | วิธีแก้ |
 |---|---|
-| `running scripts is disabled` | ใช้คำสั่งที่มี `-ExecutionPolicy Bypass` ตามขั้นที่ 4 และรัน `.\run.ps1` ด้วย `powershell -ExecutionPolicy Bypass -File .\run.ps1 scrape ...` |
+| `running scripts is disabled` หรือ `is not digitally signed` (เกิดกับไฟล์ที่โหลดเป็น ZIP) | รัน `install.ps1` ตามขั้นที่ 4 ก่อน (มันปลดล็อกไฟล์ให้) หรือพิมพ์ `Get-ChildItem -Recurse \| Unblock-File` ในโฟลเดอร์โปรแกรม หรือรันแบบข้ามชั่วคราว `powershell -ExecutionPolicy Bypass -File .\run.ps1 login` |
 | `Python 3.10+ not found` | ทำขั้นที่ 1 ใหม่ แล้วปิด-เปิด PowerShell |
 | ขึ้นว่าต้องล็อกอิน (exit code 3) | รัน `.\run.ps1 login` ใหม่ |
 | ภาษาไทยเป็นสี่เหลี่ยม/อักษรเพี้ยน | เปิดไฟล์ `.md` ด้วย VS Code, Notepad หรือ Obsidian (UTF-8) |
@@ -80,7 +80,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 
 Results: `report\All_Post.md`, `report\picture\`, `report\scrape_audit.txt` (`never-seen=0` = nothing missed).
 
-If PowerShell blocks scripts, prefix with `powershell -ExecutionPolicy Bypass -File .\run.ps1 <command>`.
+If PowerShell says `run.ps1 is not digitally signed` (typical for a ZIP download), run `Get-ChildItem -Recurse | Unblock-File` in the program folder (`install.ps1` also does this), or use `powershell -ExecutionPolicy Bypass -File .\run.ps1 <command>`.
 
 ## ถอนการติดตั้ง / Uninstall
 ลบโฟลเดอร์โปรแกรม และลบโฟลเดอร์ล็อกอิน `%LOCALAPPDATA%\fb-post-extractor` (พิมพ์ในช่อง Address ของ File Explorer)

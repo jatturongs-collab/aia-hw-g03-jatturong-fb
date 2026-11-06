@@ -5,6 +5,12 @@ $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 Set-Location $PSScriptRoot
 
+# Files from a GitHub "Download ZIP" carry a "downloaded from the internet" mark, and PowerShell
+# then refuses to run .\run.ps1 ("is not digitally signed"). Remove the mark from this folder only.
+Get-ChildItem -Path $PSScriptRoot -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.FullName -notmatch '\\\.venv\\' } |
+    Unblock-File -ErrorAction SilentlyContinue
+
 Write-Host "== 1/4 Checking Python ==" -ForegroundColor Cyan
 $py = $null
 $ver = ""

@@ -21,7 +21,7 @@
 ## เครื่องมือนี้ทำอะไร (Quick start)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\install.ps1     # ครั้งเดียว
+powershell -ExecutionPolicy Bypass -File .\install.ps1     # ครั้งเดียว (ปลดล็อกไฟล์ที่ดาวน์โหลดมาด้วย)
 .\run.ps1 login                                            # ครั้งเดียว: ล็อกอินเองในหน้าต่าง Chrome แล้วกด ENTER
 .\run.ps1 scrape -Url https://www.facebook.com/WriterTable -Max 20
 ```
