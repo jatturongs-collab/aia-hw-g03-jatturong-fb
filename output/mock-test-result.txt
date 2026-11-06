@@ -1,0 +1,21 @@
+run.ps1 test on Windows 11, 2026-11-06 (fake Facebook page, mock data only; no real posts)
+====================================================================
+ Facebook Post Extractor v2
+ Target      : https://www.facebook.com/WriterTable
+====================================================================
+Feed 1: positions 1..35  collected=34  skipped=1  never-seen=0
+Collected posts: 34   with date: 34   with post permalink: 34
+Run ended because: stagnation: no new posts for 6 cycles (Facebook stopped serving older posts)
+[i] Run ended because: stagnation: no new posts for 6 cycles (Facebook stopped serving older posts)
+[+] Done.
+====================================================================
+ Facebook Post Extractor v2
+ Target      : https://www.facebook.com/WriterTable
+====================================================================
+[+] Jumping to year 2025 (Filters -> Go to: Year)
+[+] Feed now starts at the end of 2025
+Feed 1: positions 1..5  collected=5  skipped=0  never-seen=0
+Collected posts: 5   with date: 5   with post permalink: 5
+Run ended because: stagnation: no new posts for 6 cycles (Facebook stopped serving older posts)
+[i] Run ended because: stagnation: no new posts for 6 cycles (Facebook stopped serving older posts)
+[+] Done.

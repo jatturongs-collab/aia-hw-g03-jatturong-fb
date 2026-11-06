@@ -1,4 +1,20 @@
-# Never commit sessions, scraped data or logs
+# Secrets: never commit these to a public repo
+.env
+.env.*
+*.key
+*.pem
+*.p12
+secrets*
+credentials*
+*token*
+
+# Private or licensed data: keep it on your own machine
+private/
+data/private/
+setsmart/
+*SETSMART*
+
+# Facebook tool: login sessions, scraped data, logs (never commit)
 .fb_browser_profile/
 .fb_extractor_profile/
 profile/
@@ -6,11 +22,19 @@ report/
 report*/
 *.log
 *.bak
+test/out/
+test/out_year/
+test/out_max/
+test/profile/
+test/profile_max/
+
+# System and tool clutter
+.DS_Store
+Thumbs.db
+desktop.ini
 __pycache__/
 *.pyc
 .venv/
-test/out/
-test/out_year/
-test/profile/
-.env
-*.key
+venv/
+node_modules/
+.claude/settings.local.json

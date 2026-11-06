@@ -21,7 +21,7 @@ You need **Google Chrome** and your own Facebook account.
 
 **วิธี git:**
 ```powershell
-git clone https://github.com/jatturongs-collab/fb-post-extractor.git
+git clone https://github.com/jatturongs-collab/aia-hw-g03-jatturong-fb.git
 ```
 
 ### ขั้นที่ 3 — เปิด PowerShell ในโฟลเดอร์โปรแกรม
@@ -71,7 +71,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 ## English
 
 1. **Install Python (once):** open PowerShell, run `winget install Python.Python.3.12`, then close and reopen PowerShell.
-2. **Get the program:** on the GitHub page click green **Code → Download ZIP** and extract it, or `git clone https://github.com/jatturongs-collab/fb-post-extractor.git`.
+2. **Get the program:** on the GitHub page click green **Code → Download ZIP** and extract it, or `git clone https://github.com/jatturongs-collab/aia-hw-g03-jatturong-fb.git`.
 3. **Open PowerShell in that folder:** right-click empty space → **Open in Terminal**.
 4. **Install (once):** `powershell -ExecutionPolicy Bypass -File .\install.ps1`
 5. **Optional self-test (no Facebook):** `.\run.ps1 test`
