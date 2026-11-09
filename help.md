@@ -5,7 +5,7 @@
 
 ## 1. ยังไม่ได้ทดสอบ login และดึงโพสต์จริงกับ Facebook
 
-- **อยากให้เกิดอะไร:** `.\run.ps1 login` แล้ว `.\run.ps1 scrape -Max 5` ได้ `report\All_Post.md` และ `never-seen=0`
+- **อยากให้เกิดอะไร:** `.\run.ps1 login` แล้ว `.\run.ps1 scrape -Max 5` ได้ `output\<ticker>\All_Post.md` และ `never-seen=0`
 - **ลองทำอะไรไปแล้ว:** ทดสอบกับหน้า Facebook จำลอง (`run.ps1 test`) ผ่านแล้ว ส่วนของจริงยังไม่ได้ลอง
 - **เกิดอะไรขึ้นจริง:** [ผู้เรียนเติมหลังทดสอบจริง]
 

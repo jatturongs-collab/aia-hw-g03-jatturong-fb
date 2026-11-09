@@ -125,3 +125,21 @@ I don't know because it look like when power shell open chrome it get stuck . I 
 - **ผลที่ได้:** ทดสอบเปิดหน้า Facebook ด้วยค่าตั้งเดียวกัน (โปรไฟล์ชั่วคราว ไม่ล็อกอิน) ทั้งแบบ headless และมีหน้าต่าง หน้าโหลดเสร็จใน 0.7 วินาที จึงจำลองอาการค้างไม่ได้ สันนิษฐานว่าค้างหลังกดล็อกอิน เพราะ Facebook ไม่ไว้ใจเบราว์เซอร์ที่ถูกควบคุมอัตโนมัติ (ยังไม่ยืนยัน) เพิ่ม `.\run.ps1 login-chrome` เปิด Chrome ปกติใช้โฟลเดอร์โปรไฟล์เดียวกัน ทดสอบแล้วว่า Playwright ใช้โปรไฟล์ที่ Chrome ปกติสร้างต่อได้
 - **ตัดสินใจอะไร และเพราะอะไร:** เพิ่มเป็นคำสั่งแยกแทนที่จะเปลี่ยน `login` เดิม เพราะยังไม่รู้สาเหตุแน่ชัด ให้ผู้เรียนเลือกลองได้
 - **ขั้นต่อไป:** ผู้เรียนลอง `login-chrome` แล้วรัน `scrape -Max 5` และเติมผลใน `help.md` ข้อ 1
+
+---
+
+## รอบ 7 · 2026-11-09
+
+- **ทำอะไร:** หาสาเหตุที่ Chrome ค้างที่ `about:blank` ตอนรัน `scrape` เปลี่ยนที่เก็บผลเป็น `output/<ticker>/` และเอา flag `--disable-blink-features=AutomationControlled` ออก
+- **เครื่องมือ / model:** Claude Desktop (Code) · Sonnet 5.5
+- **Prompt ที่ใช้:**
+
+```text
+can you change the report into ./output/<ticker>/ , url=https://www.facebook.com/boonchu.juramongkol then ticker=boonchu.juramongkol
+```
+
+(ก่อนหน้านั้นผู้เรียนส่งภาพหน้าจอ Chrome ที่เป็น about:blank และผลรัน `.\run.ps1 scrape -Max 5` ที่ขึ้น "Profile is locked")
+
+- **ผลที่ได้:** สาเหตุของ `about:blank` คือหน้าต่าง Chrome จาก `login-chrome` (PID 11876) ยังเปิดอยู่และถือโปรไฟล์ เมื่อ `scrape` เปิดโปรไฟล์เดียวกัน Chrome ส่งงานให้หน้าต่างเดิม สคริปต์จึงควบคุมหน้านั้นไม่ได้ ทางแก้คือปิด Chrome ตัวนั้นก่อน และข้อความ "Profile is locked" ของเครื่องมือทำงานถูกต้อง `run.ps1` สร้างโฟลเดอร์ผลจากชื่อเพจใน URL (`boonchu.juramongkol` → `output\boonchu.juramongkol\`) `.gitignore` กัน `output/*/` ไม่ให้ขึ้น repo ทดสอบ mock ผ่าน (`never-seen=0`) ส่วนการดึงจริงกับ Facebook ยังไม่มีใครทดสอบ
+- **ตัดสินใจอะไร และเพราะอะไร:** เอา flag `AutomationControlled` ออก เพราะเอกสารระบุว่า "no evasion tricks" และ flag นี้ซ่อนร่องรอยการควบคุมอัตโนมัติ (ตัดสินใจโดย AI ผู้เรียนยังไม่ได้ยืนยัน) ผลของ `scrape` อยู่ใน `output/<ticker>/` ตามที่ผู้เรียนสั่ง
+- **ขั้นต่อไป:** ผู้เรียนปิด Chrome ที่ล็อกอินแล้วรัน `scrape -Url https://www.facebook.com/boonchu.juramongkol -Max 5` และเติมผลใน `help.md` ข้อ 1 ยังเสนอให้เพิ่มการตรวจ "ปิด Chrome ก่อน" ในโค้ด (รอผู้เรียนตอบ)

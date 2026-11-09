@@ -27,7 +27,7 @@ Chromium), psutil. One venv (.venv). PowerShell: install.ps1 (no admin) and run.
 scrape-until, test). Set UTF-8 in PowerShell and Python (Thai text).
 
 CLI (extract_posts.py)
---url, --output report/All_Post.md, --scrolls, --max-posts, --stagnant-limit, --max-backoff,
+--url, --output output/<ticker>/All_Post.md, --scrolls, --max-posts, --stagnant-limit, --max-backoff,
 --checkpoint-every, --keywords, --tags / --tags-file (per-#tag files), --photos-only,
 --include-reels, --no-hover, --no-download-images, --load-media, --year, --login, --user-data-dir,
 --browser chrome|chromium, --cdp-url, --headless, --repair-every, --js-heap-mb, --debug.
@@ -35,8 +35,8 @@ Exit codes: 3 = login needed, 4 = --year filter failed. Also run_until.py (loop 
 --by-year) and merge_reports.py (merge report folders, newest first).
 
 OUTPUT
-report/All_Post.md (every post, merged incrementally, never duplicated), report/<TAG>_By_Author.md,
-report/keyword_matches.md, report/picture/fb_<hash>.jpg, report/scrape_audit.txt
+output/<ticker>/All_Post.md (every post, merged incrementally, never duplicated), output/<ticker>/<TAG>_By_Author.md,
+report/keyword_matches.md, output/<ticker>/picture/fb_<hash>.jpg, output/<ticker>/scrape_audit.txt
 (lists feed positions 1..N collected/skipped/never-seen; never-seen=0 means nothing missed).
 
 HARD-WON RULES (each was a real bug - implement them from the start)

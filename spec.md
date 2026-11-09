@@ -34,7 +34,7 @@ updated: 2026-11-06
 
 ## 4. Output · หน้าตาผลงานที่ต้องการ
 
-เครื่องมือ 1 ชุด: `.\run.ps1 login` แล้ว `.\run.ps1 scrape -Url <เพจ> -Max N` ได้ `report\All_Post.md` (วันที่ ลิงก์ ข้อความเต็ม รูป) และ `report\scrape_audit.txt` พร้อมคู่มือติดตั้งสำหรับมือใหม่ (ไทย + English)
+เครื่องมือ 1 ชุด: `.\run.ps1 login` แล้ว `.\run.ps1 scrape -Url <เพจ> -Max N` ได้ `output\<ticker>\All_Post.md` (วันที่ ลิงก์ ข้อความเต็ม รูป) และ `output\<ticker>\scrape_audit.txt` พร้อมคู่มือติดตั้งสำหรับมือใหม่ (ไทย + English)
 
 ไฟล์ที่ต้องได้: `extract_posts.py` · `install.ps1` · `run.ps1` · `INSTALL-th-en.md` · `DISCLAIMER.md` · `.AGENTS/commands/facebook_scrape.md` · `prompts/create-this-tool.md` · `output/mock-test-result.txt`
 

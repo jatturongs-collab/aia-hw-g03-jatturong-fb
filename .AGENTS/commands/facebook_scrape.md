@@ -17,12 +17,12 @@ argument-hint: <facebook-page-url> [max-posts]
    `.\run.ps1 scrape -Url <URL> -Max <N>` (ไม่ระบุ N → ใช้ 20 ในการรันแรก)
    ตัวเลือก: `-Year 2024` · `-Keywords "a,b"` · `-TagsFile tags.txt` · `-PhotosOnly` · `-NoImages` · `-Headless` (หลังล็อกอินแล้วเท่านั้น)
    ดึงจำนวนมาก: `.\run.ps1 scrape-until -Target 500 -Url <URL>` (มีหน่วงเวลาพักระหว่างรอบ ห้ามลดค่าหน่วง)
-4. อ่านผลลัพธ์ที่ `report\scrape_audit.txt`
+4. อ่านผลลัพธ์ที่ `output\<ticker>\scrape_audit.txt`
    - `never-seen=0` และไม่มีบรรทัด "no content captured" = ไม่ตกหล่น
    - มีตำแหน่งที่ไม่เคยเห็น → รันซ้ำ (ระบบ merge ด้วย hash ไม่ซ้ำ) หรือใช้ `scrape-until`
    - exit code 3 = ต้องล็อกอินใหม่ (`.\run.ps1 login`) · exit code 4 = ตั้งตัวกรองปี (`-Year`) ไม่สำเร็จ ห้ามสรุปว่าได้ข้อมูลครบ
    - Facebook ขึ้นหน้าตรวจสอบความปลอดภัย/checkpoint → หยุดทันที แจ้งผู้ใช้ อย่าลองซ้ำถี่ ๆ
-5. รายงานผู้ใช้เป็นตาราง: จำนวนโพสต์ · ช่วงวันที่ · ไฟล์ผลลัพธ์ (`report\All_Post.md`, `report\picture\`, ไฟล์รายแท็ก) · ผลตรวจ audit
+5. รายงานผู้ใช้เป็นตาราง: จำนวนโพสต์ · ช่วงวันที่ · ไฟล์ผลลัพธ์ (`output\<ticker>\All_Post.md`, `output\<ticker>\picture\`, ไฟล์รายแท็ก) · ผลตรวจ audit
 6. ห้ามสร้างหรือเดาโพสต์ที่ไม่ได้ดึงมา · ห้าม commit โฟลเดอร์ `report\` หรือโปรไฟล์ล็อกอิน (`%LOCALAPPDATA%\fb-post-extractor`) · ห้ามเผยแพร่ข้อมูลที่ดึงมา
 
 กฎที่ห้ามแก้ใน `extract_posts.py` (ทุกข้อเคยเป็นบั๊กจริง): ใช้ `div[aria-posinset]` เป็นตัวโพสต์ · เลื่อนด้วย `page.mouse.wheel` เท่านั้น · ห้ามใช้ `is_visible()` ตัดสินว่ามีเนื้อหา · วันที่ใช้ regex เข้มงวด · ขนาดรูปใช้ `getBoundingClientRect()`

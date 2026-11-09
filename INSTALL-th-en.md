@@ -50,10 +50,10 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```powershell
 .\run.ps1 scrape -Url https://www.facebook.com/WriterTable -Max 20
 ```
-อย่าปิดหน้าต่าง Chrome ที่เปิดขึ้นมาระหว่างทำงาน เมื่อเสร็จ ผลอยู่ที่โฟลเดอร์ `report`:
-- `report\All_Post.md` — โพสต์ทั้งหมด
-- `report\picture\` — รูปภาพ
-- `report\scrape_audit.txt` — ถ้ามี `never-seen=0` แปลว่าไม่ตกหล่น
+อย่าปิดหน้าต่าง Chrome ที่เปิดขึ้นมาระหว่างทำงาน เมื่อเสร็จ ผลอยู่ที่โฟลเดอร์ `output\<ticker>` (ticker = ชื่อเพจใน URL เช่น `output\boonchu.juramongkol`):
+- `output\<ticker>\All_Post.md` — โพสต์ทั้งหมด
+- `output\<ticker>\picture\` — รูปภาพ
+- `output\<ticker>\scrape_audit.txt` — ถ้ามี `never-seen=0` แปลว่าไม่ตกหล่น
 
 ### แก้ปัญหา
 | อาการ | วิธีแก้ |
@@ -79,7 +79,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 6. **Log in (once):** `.\run.ps1 login` — a Chrome window opens, log in yourself, then press ENTER in PowerShell. The tool never sees your password.
 7. **Collect posts (start small):** `.\run.ps1 scrape -Url https://www.facebook.com/WriterTable -Max 20`
 
-Results: `report\All_Post.md`, `report\picture\`, `report\scrape_audit.txt` (`never-seen=0` = nothing missed).
+Results (folder = page name in the URL, e.g. `output\boonchu.juramongkol`): `output\<ticker>\All_Post.md`, `output\<ticker>\picture\`, `output\<ticker>\scrape_audit.txt` (`never-seen=0` = nothing missed).
 
 If `login` hangs or Facebook says the login is incorrect (with a correct password), use `.\run.ps1 login-chrome`: it opens a normal Chrome window, you log in, close Chrome, press ENTER.
 

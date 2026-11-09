@@ -11,7 +11,7 @@ param(
     [switch]$Headless,
     [switch]$PhotosOnly,
     [switch]$NoImages,
-    [string]$Output = "report\All_Post.md"
+    [string]$Output = ""        # default: output\<ticker>\All_Post.md
 )
 $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -23,6 +23,18 @@ if ($Command -ne "help" -and -not (Test-Path $py)) {
     Write-Host "Not installed yet. Run:  powershell -ExecutionPolicy Bypass -File .\install.ps1" -ForegroundColor Yellow
     exit 1
 }
+
+# ticker = the page name in the URL: facebook.com/boonchu.juramongkol -> boonchu.juramongkol
+#          facebook.com/profile.php?id=123 -> 123
+function Get-Ticker([string]$u) {
+    if ($u -match 'profile\.php\?id=(\d+)') { return $Matches[1] }
+    $path = ($u -replace '^https?://[^/]+/', '') -replace '[?#].*$', ''
+    $t = ($path -split '/')[0]
+    $t = $t -replace '[^\w\.\-]', '_'
+    if (-not $t) { $t = "page" }
+    return $t
+}
+if (-not $Output) { $Output = "output\$(Get-Ticker $Url)\All_Post.md" }
 
 function Get-ExtraArgs {
     $a = @()
@@ -77,7 +89,7 @@ Usage:  .\run.ps1 <command> [options]
 
   login          open browser, log in once (your own account), press ENTER
   login-chrome   same, but in a normal Chrome window (use this if "login" hangs or says incorrect)
-  scrape         collect posts into report\All_Post.md
+  scrape         collect posts into output\<ticker>\All_Post.md (ticker = page name in the URL)
   scrape-until   repeat runs with cool-downs until -Target posts
   test           self-test against a fake page (no Facebook, no login)
 

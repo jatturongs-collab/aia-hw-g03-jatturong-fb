@@ -29,9 +29,9 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1     # ครั้งเ�
 
 | ผลลัพธ์ (อยู่ในเครื่องคุณ ไม่ขึ้น repo) | ความหมาย |
 |---|---|
-| `report\All_Post.md` | โพสต์ทั้งหมด (วันที่ ลิงก์ ข้อความเต็ม รูป) |
-| `report\scrape_audit.txt` | ตรวจความครบ: `never-seen=0` = ไม่ตกหล่น |
-| `report\<TAG>_By_Author.md` | แยกตาม #tag (ถ้าใส่ `-TagsFile`) |
+| `output\<ticker>\All_Post.md` | โพสต์ทั้งหมด (วันที่ ลิงก์ ข้อความเต็ม รูป) |
+| `output\<ticker>\scrape_audit.txt` | ตรวจความครบ: `never-seen=0` = ไม่ตกหล่น |
+| `output\<ticker>\<TAG>_By_Author.md` | แยกตาม #tag (ถ้าใส่ `-TagsFile`) |
 
 วิธีทำงาน: Playwright + Chrome profile ในเครื่อง (`%LOCALAPPDATA%\fb-post-extractor`) → เลื่อนด้วย mouse wheel จริง → อ่านโพสต์จาก `div[aria-posinset]` → hover เวลาเพื่อได้วันที่/ลิงก์จริง → กันซ้ำด้วย hash ข้อความ
 

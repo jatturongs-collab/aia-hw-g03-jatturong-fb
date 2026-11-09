@@ -20,6 +20,8 @@ setsmart/
 profile/
 report/
 report*/
+# scraped data goes to output/<ticker>/ (output/ top-level files like README stay tracked)
+output/*/
 *.log
 *.bak
 test/out/
